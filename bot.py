@@ -1,5 +1,6 @@
 import asyncio
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.filters import Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
@@ -10,7 +11,7 @@ async def main():
     bot = Bot(token=API_TOKEN)
     dp = Dispatcher()
 
-    @dp.message(commands=['start'])
+    @dp.message(Command(commands=['start']))
     async def send_welcome(message: types.Message):
         keyboard = InlineKeyboardBuilder()
         web_app_button = InlineKeyboardButton(
