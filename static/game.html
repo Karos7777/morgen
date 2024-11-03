@@ -2,58 +2,30 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Угадай число</title>
-</head>
-<body>
-    <h1>Игра "Угадай число"</h1>
-    <p>Я загадал число от 1 до 100. Попробуй угадать!</p>
-    <input type="number" id="guessInput" min="1" max="100" placeholder="Введите число">
-    <button onclick="checkGuess()">Угадать</button>
-    <p id="result"></p>
-
+    <title>Игра</title>
     <script>
-        const randomNumber = Math.floor(Math.random() * 100) + 1;
-        let attempts = 0;
-        const telegramId = 853232715; // Замените на реальный Telegram ID пользователя
-
-        function checkGuess() {
-            const userGuess = parseInt(document.getElementById('guessInput').value);
-            attempts++;
-            const result = document.getElementById('result');
-
-            if (userGuess === randomNumber) {
-                result.textContent = `Поздравляем! Вы угадали число ${randomNumber} за ${attempts} попыток.`;
-                sendScore(attempts);
-            } else if (userGuess < randomNumber) {
-                result.textContent = 'Загаданное число больше.';
-            } else {
-                result.textContent = 'Загаданное число меньше.';
-            }
-        }
-
-        function sendScore(score) {
+        function submitScore(score) {
+            const telegramId = 853232715; // Замените на реальный Telegram ID пользователя
             fetch('/submit_score', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    telegram_id: telegramId,
-                    score: score
-                })
+                body: JSON.stringify({ telegram_id: telegramId, score: score })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    console.log('Результат успешно отправлен.');
+                    alert('Ваш результат сохранен!');
                 } else {
-                    console.error('Ошибка при отправке результата.');
+                    alert('Произошла ошибка при сохранении результата.');
                 }
-            })
-            .catch(error => {
-                console.error('Ошибка сети:', error);
             });
         }
     </script>
+</head>
+<body>
+    <h1>Добро пожаловать в игру!</h1>
+    <button onclick="submitScore(100)">Получить 100 очков</button>
 </body>
 </html>
