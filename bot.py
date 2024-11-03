@@ -16,7 +16,7 @@ async def main():
         keyboard = InlineKeyboardBuilder()
         web_app_button = InlineKeyboardButton(
             text='Начать игру',
-            web_app=types.WebAppInfo(url=WEB_APP_URL)
+            web_app=types.WebAppInfo(url=http://127.0.0.1:8000/static/game.html)
         )
         keyboard.add(web_app_button)
         await message.answer(
