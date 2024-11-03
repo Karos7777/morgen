@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Игра</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morgen Game</title>
+    <style>
+        body { 
+            text-align: center; 
+            font-family: Arial, sans-serif; 
+        }
+        h1 { color: blue; }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
     <script>
-        function submitScore(score) {
-            const telegramId = 853232715; // Замените на реальный Telegram ID пользователя
-            fetch('/submit_score', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ telegram_id: telegramId, score: score })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Ваш результат сохранен!');
-                } else {
-                    alert('Произошла ошибка при сохранении результата.');
-                }
-            });
+        let score = 0;
+        function playGame() {
+            score += 100;
+            document.getElementById('score').innerText = `Score: ${score}`;
         }
     </script>
 </head>
 <body>
-    <h1>Добро пожаловать в игру!</h1>
-    <button onclick="submitScore(100)">Получить 100 очков</button>
+    <h1>Morgen Game</h1>
+    <button onclick="playGame()">Play to Earn 100 Points</button>
+    <p id="score">Score: 0</p>
 </body>
 </html>
